@@ -1,5 +1,5 @@
 package com.abdulradi.json
-
+import scala.util.Try
 /**
   * Data structures that represents JSON in memory (http://json.org/)
   */
@@ -17,10 +17,9 @@ object JsonSerialisation {
     */
   def serialise(json: Json): String = json match {
     case JsonNull => "null"
-    case JsonString(value) => ???
+    case JsonString(value) => value.mkString("\"", "", "\"")
     case JsonNumber(value) => value.toString
-    case JsonBoolean(value) => ???
+    case JsonBoolean(value) =>value.toString
     case JsonArray(values) => values.map(v => serialise(v)).mkString("[", ",", "]")
-    case JsonObject(values) => ???
-  }
+    case JsonObject(values) => values.groupBy(_._1).mapValues(_.map(_._2)).mkString(":")/** this my soulition and i didnt know how to solve it
 }
